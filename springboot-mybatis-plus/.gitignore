@@ -13,10 +13,8 @@
 
 ### IntelliJ IDEA ###
 .idea
-*.war
 *.iws
 *.iml
-*.ear
 *.ipr
 /out/
 
@@ -27,18 +25,3 @@
 /dist/
 /nbdist/
 /.nb-gradle/
-*gradle/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-bin
-target
-build
-.settings
-.project
-.classpath
-.DS_Store
-._.DS_Store
-settings.gradle
-gradlew.bat
-gradlew
