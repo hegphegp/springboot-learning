@@ -1,12 +1,12 @@
-package com.hgp.springbootlearning;
+package com.hgp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootLearningApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootLearningApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

@@ -1,12 +1,12 @@
-package com.hgp.springbootmybatisplus;
+package com.hgp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootMybatisPlusApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootMybatisPlusApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
