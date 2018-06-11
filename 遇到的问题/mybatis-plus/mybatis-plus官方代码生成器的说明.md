@@ -1,3 +1,25 @@
+### 修改了模板的地方(此时是mybatis-plus-support:2.2.0版本，时间是2018-06-11)
+```
+ConfigBuilder.processTable()方法定义了每个模板文件生成类名和文件名的规则,
+修改的地方：
+1) tableInfo.setServiceName("I" + tableInfo.getEntityName() + ConstVal.SERVICE); ==>>> tableInfo.setServiceName(tableInfo.getEntityName() + ConstVal.SERVICE);
+2) controller.java.ftl 
+    2.1) 引入@Autowired注解和service接口的类路径
+        import ${package.Service}.${table.serviceName};
+        import org.springframework.beans.factory.annotation.Autowired;
+    2.2) 注入service对象
+        @Autowired
+        <#-- ${table.serviceName?uncap_first}表示${table.serviceName}首字母小写 -->
+        private ${table.serviceName} ${table.serviceName?uncap_first};
+    2.3) 自定义一个SuperController, 然后引入该Controller的类路径 
+    
+```
+
+```
+没主键的实体类使用Active Record设计模式，可能会有问题
+Active Record 是一种数据访问设计模，每一个类的实例对象唯一对应一个数据库表的一行(一对一关系)，可能必须要有主键
+```
+
 ### controller.java.ftl模板的参数
 ```
 ${package.Controller} 作用：package名称
@@ -33,7 +55,14 @@ ${package.Entity} 作用：package名称
 ${table.comment}                 作用：引入数据表的注释
 ${author}                        作用：作者
 ${date}                          作用：日期
-
+<#if field.keyFlag></#if>        作用：mybatis-plus官方代码生成器，避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+<#list table.fields as field>
+　　<#if field.keyFlag>
+　　<#assign keyPropertyName="${field.propertyName}"/>
+</#if>
+assign : 用于动态创建的变量，该变量为该模板页面创建，属于一个顶层变量，在变量定义后任意地方都可以使用
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 ```
 
 
@@ -99,6 +128,8 @@ public class MysqlGenerator {
                 // .setTablePrefix(new String[]{"bmd_", "mp_"})// 此处可以修改为您的表前缀
                 .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
                 .setLogicDeleteFieldName("del") //逻辑删除的列名
+                // 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
+                .setEntityLombokModel(true)
         ).setPackageInfo(                    //设施
             new PackageConfig()
                 .setParent("tech.ascs")      // 自定义包路径
@@ -123,9 +154,3 @@ public class MysqlGenerator {
     }
 }
 ```
-
-ConfigBuilder.processTable()方法定义了每个模板文件生成类名和文件名的规则,
-修改的地方：
-1) tableInfo.setServiceName("I" + tableInfo.getEntityName() + ConstVal.SERVICE); ==>>> tableInfo.setServiceName(tableInfo.getEntityName() + ConstVal.SERVICE);
-2) controller.java.ftl 模板添加@Autowired注解，注入service对象
-
