@@ -12,7 +12,9 @@ ConfigBuilder.processTable()方法定义了每个模板文件生成类名和文�
         <#-- ${table.serviceName?uncap_first}表示${table.serviceName}首字母小写 -->
         private ${table.serviceName} ${table.serviceName?uncap_first};
     2.3) 自定义一个SuperController, 然后引入该Controller的类路径 
-    
+3) mapper.java.ftl 引入两个注解 @Component @Mapper 和这两个注解的类路径
+    import org.apache.ibatis.annotations.Mapper;
+    import org.springframework.stereotype.Component;
 ```
 
 ```
