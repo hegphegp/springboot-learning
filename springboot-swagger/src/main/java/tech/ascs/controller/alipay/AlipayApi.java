@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Api(value = "alipay", description = "阿里支付类的接口")
+@Api(value = "在Controller的接口定义的@Api注解的value", description = "在Controller的接口定义的@Api注解的description")
 public interface AlipayApi {
-    @ApiOperation(value = "阿里支付类的查询接口", nickname = "阿里支付类的查询接口", response = Domain.class, tags={ "alipay" })
+    @ApiOperation(value = "在每个restful接口方法定义的@ApiOperation注解的value", nickname = "阿里支付类的查询接口", response = Domain.class, tags={ "在每个restful接口方法定义的@ApiOperation注解的tags" })
 //    @ApiResponse(code = 200, message = "successful operation", response = Domain.class)
     @ApiImplicitParams({
         @ApiImplicitParam(name = "id", value = "book's name", required = true, dataType = "string", paramType = "query"),
