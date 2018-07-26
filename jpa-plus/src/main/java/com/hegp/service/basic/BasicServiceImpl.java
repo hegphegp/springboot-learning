@@ -13,13 +13,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * 这套封装只能用于单数据库的应用，如果多数据库应用，可能不适用，等以后能力提升了，再来改造成多数据库的
- */
-
+/** 这套封装只能用于单数据库的应用，如果多数据库应用，可能不适用，等以后能力提升了，再来改造成多数据库的 */
 /**
  * 参考的博客<url>https://blog.csdn.net/u012706811/article/details/53218102</url>
  * 现阶段知道的官方JPA提供的复杂条件封装有两种方式
