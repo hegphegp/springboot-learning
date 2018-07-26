@@ -40,6 +40,7 @@ public class SwaggerConfig {
             .build();
     }
 
+    /**除了.groupName("银联API接口文档")和.apis(RequestHandlerSelectors.basePackage("com.itstyle.modules.unionpay"))，其他全是废话描述的代码*/
     @Bean
     public Docket unionpayApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -51,6 +52,7 @@ public class SwaggerConfig {
             .build();
     }
 
+    /** 全是一些与接口操作无关的文档废话描述，每个Docket都引入这些废话描述，也可以为每个Docket引入不同的ApiInfoBuilder废话描述 */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("支付系统")

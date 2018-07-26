@@ -1,0 +1,9 @@
+# SpringBoot开发案例之整合Swagger篇接口文档分组https://www.jianshu.com/p/19f2a349cf1a
+# 访问URL是 http://localhost:port/swagger-action/swagger-ui.html
+
+server:
+  port: 8785
+
+spring:
+  application:
+    name: swagger-action
