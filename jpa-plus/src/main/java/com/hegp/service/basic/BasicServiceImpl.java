@@ -1,5 +1,6 @@
 package com.hegp.service.basic;
 
+import com.hegp.domain.Worker;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -23,8 +25,8 @@ import java.util.List;
  * 例子 //select u from User u where u.id = 1
  * CriteriaBuilder cb = entityManager.getCriteriaBuilder();
  * CriteriaQuery<User> cq = cb.createQuery(User.class);
- * Root<User> root = cq.from(User.class); //from User
- * cq.select(root); //select * from User
+ * // Root<User> root = cq.from(User.class); //from User
+ * // cq.select(root); //select * from User
  * javax.persistence.criteria.Predicate pre = cb.equal(root.get("id").as(Integer.class),id);//id=1
  * cq.where(pre);//where id=1
  * Query query = entityManager.createQuery(cq);//select u from User u where u.id = 1
@@ -88,24 +90,29 @@ public class BasicServiceImpl<T> implements IBasicService<T> {
 	public boolean deleteById(Object id) {
 		Assert.notNull(id, "id不允许为空");
 		Class entityClass = currentModelClass();
-		deleteById(entityClass, id);
+		em.remove(em.getReference(entityClass, id));
 		return true;
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public boolean deleteByIds(Object[] ids) {
+		Assert.notEmpty(ids, "ids数组不能为空");
 		Class entityClass = currentModelClass();
 		for (Object id : ids) {
-			Assert.notNull(id, "id不允许为空");
+			Assert.notNull(id, "ids数组包含空的id");
 			em.remove(em.getReference(entityClass, id));
 		}
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		Class<T> domainClass = currentModelClass();
+		cb.createQuery(domainClass);
+//		CriteriaQuery<T> cq = cb.createQuery(User.class);
 		return true;
 	}
 
-	private void deleteById(Class entityClass, Object id) {
-		em.remove(em.getReference(entityClass, id));
-	}
+//	private void deleteById(Class entityClass, Object id) {
+//		em.remove(em.getReference(entityClass, id));
+//	}
 
 	@Override
 	public Page<T> selectByPage(Pageable pageable) {
