@@ -1,5 +1,10 @@
 # gradle.build去掉某些jar包依赖
 
+#### 查看整个项目的jar包依赖
+```
+gradle dependencies
+```
+
 ##### 方法一(在具体的某个dependency中排除)
 ```groovy
 dependencies {
